@@ -1,0 +1,18 @@
+{
+  "name": "eventsrc",
+  "version": "0.1.0",
+  "description": "Simple, straight forward event sourcing library",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "ava --verbose --watch"
+  },
+  "keywords": [
+    "eventsrc",
+    "event-sourcing"
+  ],
+  "author": "Matteo De Micheli",
+  "license": "ISC",
+  "devDependencies": {
+    "ava": "^0.14.0"
+  }
+}
