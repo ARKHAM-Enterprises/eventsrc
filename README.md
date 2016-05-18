@@ -1,6 +1,6 @@
 # eventsrc.js
 
-Simple, straight forward event sourcing library.
+**WIP**
 
 ```js
 import { createEventStore, createMemoryStorage } from 'eventsrc'
