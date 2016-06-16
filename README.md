@@ -11,15 +11,15 @@ import { createEventStore, createMemoryStorage } from 'eventsrc'
 
 /*
  * This code creates a shopping cart event store
- * using an in memory storage
+ * using a memory storage
  */
 const cartEventStore = createEventStore({
   storage: createMemoryStorage(),
 
   /*
-   * A reducer function (inspired by redux) that always takes in the latest
-   * version of the document and the event that has been emitted as the second argument
-   * and returns the new version of the document
+   * This reducer function (inspired by redux) always takes the latest
+   * version of the document and the emitted event as arguments.
+   * The return value is the new version of the document
    */
   reduce: function (doc = {}, event) {
     switch (event.type) {
@@ -36,7 +36,7 @@ const cartEventStore = createEventStore({
 })
 
 /*
- * Subscribe to any events that are emitted on the cart store
+ * Subscribe to any events that are emitted on the store
  */
 cartEventStore.subscribe(event => {
   console.log(event)
@@ -44,7 +44,7 @@ cartEventStore.subscribe(event => {
 
 /*
  * Emit an event with the key "CART_CREATED"
- * and a payload that contains the id, which needs to be passed
+ * and a payload that contains the id, which always needs to be passed
  * and the items (see reduce method for logic)
  */
 cartEventStore.emit('CART_CREATED', {
