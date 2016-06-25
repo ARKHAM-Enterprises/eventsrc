@@ -11,8 +11,6 @@ test('invalid createEventStore', t => {
 })
 
 test('subscribe', t => {
-  t.pass(2)
-
   const store = createEventStore({
     storage: createMemoryStorage(),
     reduce() {}
@@ -96,4 +94,76 @@ test('find', t => {
   t.is(secondDoc.name, 'name v2')
   t.is(firstDoc.initial, true)
   t.is(firstDoc.name, 'name v1')
+})
+
+test('restore', t => {
+  t.pass(1)
+
+  const store = createEventStore({
+    storage: createMemoryStorage(),
+    reduce() {}
+  })
+
+  let expectedEvents = [
+    {
+      key: 'EVENT_HAPPENED',
+      version: 1,
+      payload: {
+        id: 'id',
+        data: 'wow'
+      }
+    },
+    {
+      key: 'EVENT_HAPPENED',
+      version: 2,
+      payload: {
+        id: 'id',
+        data: 'wow2'
+      }
+    },
+    {
+      key: 'EVENT_HAPPENED',
+      version: 1,
+      payload: {
+        id: 'id2',
+        data: 'wow2'
+      }
+    },
+    {
+      key: 'EVENT_HAPPENED',
+      version: 2,
+      payload: {
+        id: 'id2',
+        data: 'wow22'
+      }
+    }
+  ]
+
+  expectedEvents = expectedEvents.concat(expectedEvents)
+
+  store.subscribe(e => {
+    t.deepEqual(e, expectedEvents.shift())
+  })
+
+  store.emit('EVENT_HAPPENED', {
+    id: 'id',
+    data: 'wow'
+  })
+
+  store.emit('EVENT_HAPPENED', {
+    id: 'id',
+    data: 'wow2'
+  })
+
+  store.emit('EVENT_HAPPENED', {
+    id: 'id2',
+    data: 'wow2'
+  })
+
+  store.emit('EVENT_HAPPENED', {
+    id: 'id2',
+    data: 'wow22'
+  })
+
+  store.restore()
 })
