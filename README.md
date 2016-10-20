@@ -26,9 +26,10 @@ const cartEventStore = createEventStore({
       case 'CART_CREATED':
         return { items: event.payload.items }
       case 'ITEM_ADDED':
-        return Object.assign({}, doc, {
+        return {
+          ...doc
           items: doc.items.concat([event.payload.item])
-        });
+        };
       default:
         return doc;
     }
