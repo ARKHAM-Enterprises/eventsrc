@@ -27,7 +27,7 @@ const cartEventStore = createEventStore({
         return { items: event.payload.items }
       case 'ITEM_ADDED':
         return {
-          ...doc
+          ...doc,
           items: doc.items.concat([event.payload.item])
         };
       default:
