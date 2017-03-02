@@ -22,7 +22,7 @@ const cartEventStore = createEventStore({
    * The return value is the new version of the document
    */
   reduce: function (doc = {}, event) {
-    switch (event.type) {
+    switch (event.key) {
       case 'CART_CREATED':
         return { items: event.payload.items }
       case 'ITEM_ADDED':
